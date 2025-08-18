@@ -1,0 +1,49 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "test",
+      "settings": {}
+    },
+    "test2": {
+      "type": "test-2",
+      "blocks": {
+        "itemblock_eKbNki": {
+          "type": "itemblock",
+          "settings": {
+            "item_text": "1",
+            "item_description": "2"
+          }
+        },
+        "itemblock_XXcP7T": {
+          "type": "itemblock",
+          "settings": {
+            "item_text": "Default Item Text",
+            "item_description": "This is a description for the item block."
+          }
+        }
+      },
+      "block_order": [
+        "itemblock_eKbNki",
+        "itemblock_XXcP7T"
+      ],
+      "settings": {
+        "title": "Test Title for shopify page",
+        "image_url": "shopify://shop_images/Dblog3.avif",
+        "textarea": "This is a test area for the shopify page."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "test2"
+  ]
+}

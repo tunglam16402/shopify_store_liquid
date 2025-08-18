@@ -1,0 +1,102 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .sale-products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .author-info {
+    text-align: center;
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+{%- endstyle -%}
+
+<div class="page-width">
+  <h1>Sale Page</h1>
+
+  {% assign sale_collection = collections[section.settings.sale_collection] %}
+
+  {% if sale_collection %}
+    <div class="sale-products">
+      {% paginate sale_collection.products by 1 %}
+        {% for product in sale_collection.products %}
+          {% assign author = product.metafields.custom.author.value %}
+          {% if author %}
+            <div class="author-info">
+              <h3>Author: {{ author.name }}</h3>
+              <img
+                src="{{ author.avatar | image_url: width: 100, height: 100 }}"
+                alt="{{ author.name }}"
+                width="100"
+                height="100"
+              >
+              <p>{{ author.description }}</p>
+              <p>{{ author.date }}</p>
+            </div>
+          {% endif %}
+          <div>
+            {% render 'card-product',
+              card_product: product,
+              media_aspect_ratio: 'square',
+              show_secondary_image: false,
+              lazy_load: false,
+              skip_styles: false,
+              quick_add: false,
+              section_id: section.id
+            %}
+          </div>
+        {% endfor %}
+
+        <!-- Pagination links -->
+        {% if paginate.pages > 1 %}
+          <div class="pagination">
+            {% if paginate.previous %}
+              <a href="{{ paginate.previous.url }}">&larr; </a>
+            {% endif %}
+
+            {% for part in paginate.parts %}
+              {% if part.is_link %}
+                <a href="{{ part.url }}">{{ part.title }}</a>
+              {% else %}
+                <span class="{% if part.title == paginate.current_page %}active{% endif %}">
+                  {{ part.title }}
+                </span>
+              {% endif %}
+            {% endfor %}
+
+            {% if paginate.next %}
+              <a href="{{ paginate.next.url }}"> &rarr;</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endpaginate %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Sale",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "sale_collection",
+      "label": "Sale Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sale"
+    }
+  ]
+}
+{% endschema %}
